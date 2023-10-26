@@ -27,10 +27,27 @@ const List = styled.ScrollView`
 
 export default function App() {
   const width = Dimensions.get("window").width;
+
+  const tempData = {
+    1: { id: "1", text: "React", complete: "false" },
+    2: { id: "2", text: "React-Native", complete: "false" },
+    3: { id: "3", text: "RN", complete: "false" },
+  };
+  const [tasks, setTasks] = useState(tempData);
+
   const [newTask, setNewTask] = useState("");
+
   const addTask = () => {
-    alert(newTask);
+    // 빈텍스트는 추가X
+    if (newTask.length < 1) {
+      return;
+    }
+    const ID = Date.now().toString();
+    const newTaskObject = {
+      [ID]: { id: ID, text: newTask, complete: false },
+    };
     setNewTask("");
+    setTasks({ ...tasks, ...newTaskObject });
   };
   return (
     <ThemeProvider theme={theme}>
@@ -48,21 +65,11 @@ export default function App() {
         />
 
         <List width={width}>
-          <Task text="Hi" />
-          <Task text="Hi" />
-          <Task text="Hi" />
-          <Task text="Hi" />
-          <Task text="Hi" />
-          <Task text="Hi" />
-          <Task text="Hi" />
-          <Task text="Hi" />
-          <Task text="Hi" />
-          <Task text="Hi" />
-          <Task text="Hi" />
-          <Task text="Hi" />
-          <Task text="Hi" />
-          <Task text="Hi" />
-          <Task text="Hi" />
+          {Object.values(tasks)
+            .reverse()
+            .map((item) => (
+              <Task key={item.id} text={item.text} />
+            ))}
         </List>
       </Container>
     </ThemeProvider>
