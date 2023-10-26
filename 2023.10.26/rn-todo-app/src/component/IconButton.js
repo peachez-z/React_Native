@@ -11,9 +11,12 @@ const Icon = styled.Image`
   tint-color: ${({ theme }) => theme.text};
 `;
 
-const IconButton = ({ icon, onPress }) => {
+const IconButton = ({ icon, onPress, id }) => {
+  const _onPress = () => {
+    onPress(id);
+  };
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity onPress={_onPress}>
       <View>
         <Icon source={icon}></Icon>
       </View>
@@ -25,6 +28,7 @@ IconButton.propTypes = {
   // 배열로 전달 되어야 함
   icon: PropTypes.oneOf(Object.values(icons)).isRequired,
   onPress: PropTypes.func,
+  id: PropTypes.string,
 };
 
 export default IconButton;
