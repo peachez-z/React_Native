@@ -3,6 +3,8 @@ import theme from "./theme"; // theme를 import할 때 default로 가져와야 �
 import { StatusBar } from "react-native";
 import Input from "./component/input";
 import React, { useState } from "react";
+import IconButton from "./component/IconButton";
+import { icons } from "./icons";
 
 const Container = styled.View`
   flex: 1;
@@ -40,6 +42,10 @@ export default function App() {
           onChangeText={(text) => setNewTask(text)}
           onSubmitEditing={addTask}
         />
+        <IconButton icon={icons.check} onPress={() => alert("check")} />
+        <IconButton icon={icons.uncheck} onPress={() => alert("uncheck")} />
+        <IconButton icon={icons.edit} onPress={() => alert("edit")} />
+        <IconButton icon={icons.delete} onPress={() => alert("delete")} />
       </Container>
     </ThemeProvider>
   );
