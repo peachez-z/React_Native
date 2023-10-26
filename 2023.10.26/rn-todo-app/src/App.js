@@ -1,10 +1,9 @@
 import styled, { ThemeProvider } from "styled-components/native";
 import theme from "./theme"; // theme를 import할 때 default로 가져와야 합니다.
-import { StatusBar } from "react-native";
+import { StatusBar, Dimensions } from "react-native";
 import Input from "./component/input";
 import React, { useState } from "react";
-import IconButton from "./component/IconButton";
-import { icons } from "./icons";
+import Task from "./component/Task";
 
 const Container = styled.View`
   flex: 1;
@@ -21,8 +20,13 @@ const Title = styled.Text`
   align-items: flex-end;
   padding: 0 20px;
 `;
+const List = styled.ScrollView`
+  flex: 1;
+  width: ${({ width }) => width - 40}px;
+`;
 
 export default function App() {
+  const width = Dimensions.get("window").width;
   const [newTask, setNewTask] = useState("");
   const addTask = () => {
     alert(newTask);
@@ -42,10 +46,24 @@ export default function App() {
           onChangeText={(text) => setNewTask(text)}
           onSubmitEditing={addTask}
         />
-        <IconButton icon={icons.check} onPress={() => alert("check")} />
-        <IconButton icon={icons.uncheck} onPress={() => alert("uncheck")} />
-        <IconButton icon={icons.edit} onPress={() => alert("edit")} />
-        <IconButton icon={icons.delete} onPress={() => alert("delete")} />
+
+        <List width={width}>
+          <Task text="Hi" />
+          <Task text="Hi" />
+          <Task text="Hi" />
+          <Task text="Hi" />
+          <Task text="Hi" />
+          <Task text="Hi" />
+          <Task text="Hi" />
+          <Task text="Hi" />
+          <Task text="Hi" />
+          <Task text="Hi" />
+          <Task text="Hi" />
+          <Task text="Hi" />
+          <Task text="Hi" />
+          <Task text="Hi" />
+          <Task text="Hi" />
+        </List>
       </Container>
     </ThemeProvider>
   );
