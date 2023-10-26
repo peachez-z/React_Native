@@ -1,38 +1,43 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Switch } from "react-native";
 import Box from "./Box";
 import Shadow from "./Shadow";
-import styled, { css } from "styled-components/native";
-
+import styled, { css, ThemeProvider } from "styled-components/native";
+import Input from "./input";
+import React, { useState } from "react";
 const Container = styled.View`
   flex: 1;
-  background-color: #018291;
+  background-color: ${({ theme }) => theme.bgColor};
   align-items: center;
   justify-content: center;
 `;
-const cssText = css`
-  font-size: 20px;
-  font-weight: 600;
-`;
-const StyledText = styled.Text`
-  ${cssText}
-  color: white;
-`;
+const LightTheme = {
+  InputColor: "black",
+  InputBoder: "black",
+  bgColor: "lightgrey",
+};
 
-const ErrorText = styled(StyledText)`
-  ${cssText}
-  color: red;
-`;
+const DarkTheme = {
+  InputColor: "grey",
+  InputBoder: "grey",
+  bgColor: "black",
+};
 
 const StyledButton = styled.Button``;
 
 export default function App() {
+  const [isLight, toggleTheme] = useState(true);
   return (
-    <Container>
-      <StatusBar style="auto" />
-      <StyledText>Hi</StyledText>
-      <ErrorText>bye</ErrorText>
-      <StyledButton title="styled" onPress={() => alert("styled!!")} />
-    </Container>
+    <ThemeProvider theme={isLight ? LightTheme : DarkTheme}>
+      <Container>
+        <StatusBar style="auto" />
+        <Switch
+          value={isLight}
+          onValueChange={(isLight) => toggleTheme(isLight)}
+        />
+        <Input placeholder="음오아예" />
+        <Input />
+      </Container>
+    </ThemeProvider>
   );
 }
