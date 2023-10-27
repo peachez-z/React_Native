@@ -22,10 +22,14 @@ const Contents = styled.Text`
   padding: 0 20px;
 `;
 
-const Task = ({ item, deleteTask }) => {
+const Task = ({ item, deleteTask, toggleTask }) => {
   return (
     <Container>
-      <IconButton icon={icons.uncheck} />
+      <IconButton
+        icon={item.completed ? icons.check : icons.uncheck}
+        id={item.id}
+        onPress={toggleTask}
+      />
       <Contents>{item.text}</Contents>
       <IconButton icon={icons.edit} />
       <IconButton icon={icons.delete} id={item.id} onPress={deleteTask} />
@@ -36,6 +40,7 @@ const Task = ({ item, deleteTask }) => {
 Task.propTypes = {
   item: PropTypes.object.isRequired,
   deleteTask: PropTypes.func.isRequired,
+  toggleTask: PropTypes.func.isRequired,
 };
 
 export default Task;
