@@ -5,6 +5,7 @@ import Input from "./component/input";
 import React, { useState } from "react";
 import Task from "./component/Task";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import AppLoading from "expo-app-loading";
 
 const Container = styled.View`
   flex: 1;
@@ -39,10 +40,8 @@ export default function App() {
   };
 
   const getData = async () => {
-    try {
-      const loadedData = await AsyncStorage.getItem("tasks");
-      setTasks(JSON.parse(loadedData || "{}"));
-    } catch (e) {}
+    const loadedData = await AsyncStorage.getItem("tasks");
+    setTasks(JSON.parse(loadedData || "{}"));
   };
 
   const [newTask, setNewTask] = useState("");
@@ -78,7 +77,9 @@ export default function App() {
     storeData(currentTasks);
   };
 
-  return (
+  const [isReady, setIsReady] = useState(false);
+
+  return isReady ? (
     <ThemeProvider theme={theme}>
       <Container>
         <Title>TODO List</Title>
@@ -109,5 +110,11 @@ export default function App() {
         </List>
       </Container>
     </ThemeProvider>
+  ) : (
+    <AppLoading
+      startAsync={getData}
+      onFinish={() => setIsReady(true)}
+      onError={() => {}}
+    />
   );
 }
