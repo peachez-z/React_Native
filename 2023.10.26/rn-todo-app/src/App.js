@@ -1,6 +1,6 @@
 import styled, { ThemeProvider } from "styled-components/native";
 import theme from "./theme"; // theme를 import할 때 default로 가져와야 합니다.
-import { StatusBar, Dimensions, Text } from "react-native";
+import { StatusBar, Dimensions } from "react-native";
 import Input from "./component/input";
 import React, { useState } from "react";
 import Task from "./component/Task";
@@ -29,9 +29,9 @@ export default function App() {
   const width = Dimensions.get("window").width;
 
   const tempData = {
-    1: { id: "1", text: "React", completed: "false" },
-    2: { id: "2", text: "React-Native", completed: "false" },
-    3: { id: "3", text: "RN", completed: "false" },
+    1: { id: "1", text: "React", complete: "false" },
+    2: { id: "2", text: "React-Native", complete: "false" },
+    3: { id: "3", text: "RN", complete: "false" },
   };
   const [tasks, setTasks] = useState(tempData);
 
@@ -44,7 +44,7 @@ export default function App() {
     }
     const ID = Date.now().toString();
     const newTaskObject = {
-      [ID]: { id: ID, text: newTask, completed: false },
+      [ID]: { id: ID, text: newTask, complete: false },
     };
     setNewTask("");
     setTasks({ ...tasks, ...newTaskObject });
@@ -53,12 +53,6 @@ export default function App() {
   const deleteTask = (id) => {
     const currentTasks = Object.assign({}, tasks);
     delete currentTasks[id];
-    setTasks(currentTasks);
-  };
-
-  const toggleTask = (id) => {
-    const currentTasks = Object.assign({}, tasks);
-    currentTasks[id]["completed"] = !currentTasks[id]["completed"];
     setTasks(currentTasks);
   };
 
@@ -81,12 +75,7 @@ export default function App() {
           {Object.values(tasks)
             .reverse()
             .map((item) => (
-              <Task
-                key={item.id}
-                item={item}
-                deleteTask={deleteTask}
-                toggleTask={toggleTask}
-              />
+              <Task key={item.id} item={item} deleteTask={deleteTask} />
             ))}
         </List>
       </Container>

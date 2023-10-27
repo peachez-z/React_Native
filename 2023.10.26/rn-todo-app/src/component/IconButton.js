@@ -8,32 +8,27 @@ const Icon = styled.Image`
   width: 30px;
   height: 30px;
   margin: 10px;
-  tint-color: ${({ theme, completed }) =>
-    completed ? theme.done : theme.text};
+  tint-color: ${({ theme }) => theme.text};
 `;
 
-const IconButton = ({ icon, onPress, item }) => {
+const IconButton = ({ icon, onPress, id }) => {
   const _onPress = () => {
-    onPress(item.id);
+    onPress(id);
   };
   return (
     <TouchableOpacity onPress={_onPress}>
       <View>
-        <Icon source={icon} completed={item.completed} />
+        <Icon source={icon}></Icon>
       </View>
     </TouchableOpacity>
   );
-};
-
-IconButton.defaultProps = {
-  item: { completed: false },
 };
 
 IconButton.propTypes = {
   // 배열로 전달 되어야 함
   icon: PropTypes.oneOf(Object.values(icons)).isRequired,
   onPress: PropTypes.func,
-  item: PropTypes.object,
+  id: PropTypes.string,
 };
 
 export default IconButton;
