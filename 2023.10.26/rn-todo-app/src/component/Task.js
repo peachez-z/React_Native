@@ -16,10 +16,12 @@ const Container = styled.View`
 const Contents = styled.Text`
   flex: 1;
   font-size: 20px;
-  color: ${({ theme }) => theme.main};
+  color: ${({ theme, completed }) => (completed ? theme.done : theme.main)};
   width: 100%;
   align-items: flex-end;
   padding: 0 20px;
+  text-decoration-line: ${({ completed }) =>
+    completed ? "line-through" : "none"};
 `;
 
 const Task = ({ item, deleteTask, toggleTask }) => {
@@ -27,12 +29,12 @@ const Task = ({ item, deleteTask, toggleTask }) => {
     <Container>
       <IconButton
         icon={item.completed ? icons.check : icons.uncheck}
-        id={item.id}
+        item={item}
         onPress={toggleTask}
       />
-      <Contents>{item.text}</Contents>
+      <Contents completed={item.completed}>{item.text}</Contents>
       {item.completed || <IconButton icon={icons.edit} />}
-      <IconButton icon={icons.delete} id={item.id} onPress={deleteTask} />
+      <IconButton icon={icons.delete} item={item} onPress={deleteTask} />
     </Container>
   );
 };
