@@ -6,6 +6,8 @@ import React, { useState } from "react";
 import Task from "./component/Task";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import AppLoading from "expo-app-loading";
+import { Image } from "react-native"; // Image 컴포넌트 추가
+import { Asset } from "expo-asset";
 
 const Container = styled.View`
   flex: 1;
