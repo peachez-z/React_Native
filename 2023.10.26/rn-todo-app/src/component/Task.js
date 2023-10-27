@@ -31,7 +31,7 @@ const Task = ({ item, deleteTask, toggleTask }) => {
         onPress={toggleTask}
       />
       <Contents>{item.text}</Contents>
-      <IconButton icon={icons.edit} />
+      {item.completed || <IconButton icon={icons.edit} />}
       <IconButton icon={icons.delete} id={item.id} onPress={deleteTask} />
     </Container>
   );
